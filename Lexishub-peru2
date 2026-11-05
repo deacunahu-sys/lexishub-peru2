@@ -1,1 +1,434 @@
 # lexishub-peru2
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Digital | LexisHub Perú</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #2563eb;
+            --accent-gradient: linear-gradient(135deg, #2563eb, #06b6d4);
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        /* Navbar */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: #38bdf8; }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #38bdf8;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: var(--primary);
+            color: #fff;
+            padding: 9rem 2rem 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at top right, rgba(37, 99, 235, 0.2), transparent);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 2.5rem;
+        }
+
+        .team-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            text-align: left;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-card h4 { color: #38bdf8; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+        .team-card p { margin: 0; font-size: 0.95rem; color: #e2e8f0; }
+
+        /* General Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            scroll-margin-top: 70px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 800;
+        }
+
+        .section-header div {
+            height: 4px;
+            width: 60px;
+            background: var(--accent-gradient);
+            margin: 0.8rem auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* Cards & Grid */
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .card h3 { font-size: 1.25rem; color: var(--primary); margin-bottom: 0.8rem; }
+
+        /* SECCIÓN DEL DIAGRAMA */
+        .diagram-section {
+            background: #fff;
+            border: 2px dashed #cbd5e1;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .diagram-placeholder {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin-top: 1.5rem;
+        }
+
+        /* Casos de Estudio */
+        .case-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border-left: 5px solid #ef4444;
+        }
+
+        .case-card.success { border-left-color: #10b981; }
+
+        .case-tag {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-card .case-tag { background: #fee2e2; color: #dc2626; }
+        .case-card.success .case-tag { background: #d1fae5; color: #059669; }
+
+        footer {
+            background: var(--primary);
+            color: #94a3b8;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">Lexis<span>Hub</span></div>
+            <ul class="nav-links">
+                <li><a href="#presentacion">Presentación</a></li>
+                <li><a href="#telaviv">Hub Tel Aviv</a></li>
+                <li><a href="#diagrama">Diagrama</a></li>
+                <li><a href="#casos">Casos Perú</a></li>
+                <li><a href="#reflexion">Reflexión</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <span class="tag"><i class="fa-solid fa-graduation-cap"></i> Derecho & Tecnología</span>
+            <h1>Análisis del Hub Tecnológico Tel Aviv y adaptación innovativa digital en el Perú</h1>
+            <p>Proyecto LexisHub Perú — Innovación LegalTech y JusticeTech</p>
+            
+            <div class="team-card">
+                <div>
+                    <h4>Institución</h4>
+                    <p>Universidad César Vallejo</p>
+                    <p><small>Derecho | Ciclo II</small></p>
+                </div>
+                <div>
+                    <h4>Asesora</h4>
+                    <p>Dra. Milagros Luz Hidalgo Legoas</p>
+                </div>
+                <div>
+                    <h4>Autores / Equipo</h4>
+                    <p>• Acuña Huanca, Deybi Dominik</p>
+                    <p>• Aranda Sánchez, Dayana</p>
+                    <p>• Ruiz Melchor, Fanny</p>
+                    <p>• Simon Hurtado, Daniel Esteban</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRESENTACIÓN -->
+    <section id="presentacion">
+        <div class="section-header">
+            <h2>1. Presentación de la Propuesta</h2>
+            <div></div>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="icon-box"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3>La Problemática Crítica</h3>
+                <p>En el Perú, la falta de interconexión digital eficiente entre el Ministerio Público, RENIEC y OSIPTEL genera pérdidas irreversibles por fraudes como la suplantación de identidad ("La Estafa Del DNI Duplicado").</p>
+            </div>
+            <div class="card">
+                <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>La Solución LexisHub</h3>
+                <p>Proponemos articular <strong>LegalTech</strong> (Onomondo y CURIA) para prevención biométrica previa, y <strong>JusticeTech</strong> (CyberArk y JUSTINA) para rediseñar la interconexión entre el Poder Judicial y entidades estatales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HUB TEL AVIV -->
+    <section id="telaviv">
+        <div class="section-header">
+            <h2>2. Factores de Éxito: Hub Tel Aviv</h2>
+            <div></div>
+        </div>
+        <div class="grid-2" style="margin-bottom: 2rem;">
+            <div class="card">
+                <div class="icon-box"><i class="fa-solid fa-user-shield"></i></div>
+                <h3>Formación desde la Defensa</h3>
+                <p>Capacitación tecnológica avanzada en el servicio militar que luego se traslada al ecosistema emprendedor civil.</p>
+            </div>
+            <div class="card">
+                <div class="icon-box"><i class="fa-solid fa-lightbulb"></i></div>
+                <h3>Cultura de Innovación</h3>
+                <p>Cuestionar y cometer errores se asume como aprendizaje continuo, impulsando soluciones audaces.</p>
+            </div>
+        </div>
+
+        <h3 style="margin: 2rem 0 1rem 0; color: var(--primary);">Startups Destacadas</h3>
+        <div class="grid-3">
+            <div class="card">
+                <h3>CyberArk</h3>
+                <p><small style="color: var(--accent); font-weight: 600;">Ciberseguridad</small></p>
+                <p>Protege accesos privilegiados en instituciones mediante licenciamiento anual.</p>
+            </div>
+            <div class="card">
+                <h3>Onomondo</h3>
+                <p><small style="color: var(--accent); font-weight: 600;">Verificación Biométrica</small></p>
+                <p>Confirma identidad en tiempo real sin revelar contraseñas ni datos sensibles.</p>
+            </div>
+            <div class="card">
+                <h3>Mobileye</h3>
+                <p><small style="color: var(--accent); font-weight: 600;">Inteligencia Artificial</small></p>
+                <p>Tecnología predictiva para prevención de accidentes integrada en vehículos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ESPACIO PARA EL DIAGRAMA DE TU COMPAÑERA -->
+    <section id="diagrama">
+        <div class="section-header">
+            <h2>3. Diagrama del Sistema / Flujograma</h2>
+            <div></div>
+        </div>
+        <div class="diagram-section">
+            <i class="fa-solid fa-diagram-project" style="font-size: 3rem; color: var(--accent); margin-bottom: 1rem;"></i>
+            <h3>Diagrama del Ecosistema de Justicia Digital</h3>
+            <p style="color: var(--text-muted);">A continuación se muestra el esquema interactivo diseñado para la articulación institucional en el Perú.</p>
+            
+            <!-- Aaquí irá la imagen del diagrama de tu compañera -->
+            <img src="diagrama.png" alt="Diagrama de la compañera" class="diagram-placeholder" onerror="this.src='https://via.placeholder.com/800x400?text=Sube+aquí+la+imagen+del+diagrama+(diagrama.png)';">
+            
+            <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted);">
+                <em>Nota: Para mostrar la foto de tu compañera, sube la imagen a tu GitHub con el nombre <strong>diagrama.png</strong>.</em>
+            </p>
+        </div>
+    </section>
+
+    <!-- CASOS PERÚ -->
+    <section id="casos">
+        <div class="section-header">
+            <h2>4. Adaptación al Sistema Peruano</h2>
+            <div></div>
+        </div>
+
+        <div class="case-card">
+            <span class="case-tag">Caso 1: Suplantación de Identidad</span>
+            <h3>Estafa del DNI Duplicado</h3>
+            <p><strong>Situación:</strong> Denuncias demoran hasta 4 meses navegando entre trámites bancarios y de fiscalía.</p>
+        </div>
+        <div class="case-card success">
+            <span class="case-tag">Aporte LegalTech</span>
+            <h3>Solución con Onomondo</h3>
+            <p>Verificación biométrica directa conectada a RENIEC, SUNAT y Ministerio Público. Permite bloqueos preventivos automáticos en minutos.</p>
+        </div>
+
+        <div class="case-card" style="margin-top: 2rem;">
+            <span class="case-tag">Caso 2: Fraude Telefónico</span>
+            <h3>Líneas No Solicitadas & Estafas</h3>
+            <p><strong>Situación:</strong> Cobros indebidos de más de S/ 1,200 por líneas nunca contratadas.</p>
+        </div>
+        <div class="case-card success">
+            <span class="case-tag">Aporte JusticeTech</span>
+            <h3>Solución con Report SG & Rocket Lawyer</h3>
+            <p>Notificación unificada e inmediata a OSIPTEL, SBS y Ministerio Público. Congela transacciones sospechosas antes de que el dinero sea retirado.</p>
+        </div>
+    </section>
+
+    <!-- REFLEXIÓN -->
+    <section id="reflexion">
+        <div class="section-header">
+            <h2>5. Reflexión y Referencias</h2>
+            <div></div>
+        </div>
+        <div class="card" style="background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff;">
+            <h3 style="color: #38bdf8;"><i class="fa-solid fa-quote-left"></i> Conclusión</h3>
+            <p style="color: #cbd5e1; margin-top: 1rem;">El modelo de Tel Aviv demuestra que la clave radica en invertir en las personas. En el Perú, se debe adaptar esta esencia: interconectar instituciones aisladas y usar la tecnología como aliada para proteger a la ciudadanía.</p>
+        </div>
+
+        <div class="card" style="margin-top: 2rem;">
+            <h3>Referencias Bibliográficas</h3>
+            <ul style="margin-left: 1.5rem; margin-top: 1rem; color: var(--text-muted);">
+                <li>Señor, D., & Singer, S. (2009). <em>Start-Up Nation: La historia del milagro económico de Israel</em>.</li>
+                <li>IATI. (2024). <em>Informe anual del ecosistema tecnológico israelí</em>.</li>
+                <li>Ministerio Público. (2024). <em>Delitos informáticos en el Perú: Estadísticas 2017-2024</em>.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 LexisHub Perú — Universidad César Vallejo</p>
+    </footer>
+
+</body>
+</html>
